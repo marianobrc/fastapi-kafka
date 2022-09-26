@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.6
@@ -24,3 +24,15 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_CREATE_TOPICS: "geo-locations:1:1"
+
+  producer:
+    build: &producer-image
+      context: ./
+      dockerfile: ./producer/Dockerfile
+      target: dev
+    restart: "on-failure"
+    depends_on:
+      - broker
+    volumes: &code
+      - ./producer:/home/appuser/code
