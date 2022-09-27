@@ -9,7 +9,12 @@ producer = KafkaProducer(
     value_serializer=lambda m: json.dumps(m).encode('utf-8')
 )
 print("Sending a message..")
-producer.send('geo-locations', {'latitude': '41.1335', 'longitude': '71.3103'})
+producer.send(
+    topic='geo-locations',
+    value={'latitude': '41.1335', 'longitude': '71.3103'}
+)
+# block until all async messages are sent
+producer.flush()
 print("Message sent successfully.")
 
 # # Asynchronous by default
