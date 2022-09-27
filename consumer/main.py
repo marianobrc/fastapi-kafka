@@ -5,9 +5,9 @@ from kafka import KafkaConsumer
 # produce json messages
 print("Connecting to the broker..")
 consumer = KafkaConsumer(
-    topic='geo-locations',
+    'geo-locations',  # Topic
     bootstrap_servers=['kafka:9092'],
-    value_serializer=lambda m: json.dumps(m).encode('utf-8'),
+    value_deserializer=lambda m: json.loads(m.decode('utf-8')),
     auto_offset_reset='earliest',
     enable_auto_commit=True,
     group_id='location-consumers',

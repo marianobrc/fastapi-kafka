@@ -41,7 +41,7 @@ services:
       - kafka
 
   producer:
-    build: &producer-image
+    build:
       context: ./
       dockerfile: ./producer/Dockerfile
       target: dev
@@ -50,8 +50,21 @@ services:
     restart: "on-failure"
     depends_on:
       - kafka
-    volumes: &code
+    volumes:
       - ./producer:/home/appuser/code
+
+  consumer:
+    build:
+      context: ./
+      dockerfile: ./consumer/Dockerfile
+      target: dev
+    networks:
+      - kafka_network
+    restart: "on-failure"
+    depends_on:
+      - kafka
+    volumes: &code
+      - ./consumer:/home/appuser/code
 
 
 networks:
