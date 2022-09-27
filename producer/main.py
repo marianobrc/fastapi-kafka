@@ -3,11 +3,14 @@ from kafka import KafkaProducer
 from kafka.errors import KafkaError
 
 # produce json messages
+print("Connecting to the broker..")
 producer = KafkaProducer(
-    bootstrap_servers=['broker:9092'],
+    bootstrap_servers=['kafka:9092'],
     value_serializer=lambda m: json.dumps(m).encode('utf-8')
 )
+print("Sending a message..")
 producer.send('geo-locations', {'latitude': '41.1335', 'longitude': '71.3103'})
+print("Message sent successfully.")
 
 # # Asynchronous by default
 # future = producer.send('my-topic', b'raw_bytes')
