@@ -30,4 +30,4 @@ USER appuser
 # Define an image for local development. Inherits common packages from the base stage.
 FROM base as dev
 # The development server starts by default when the container starts
-CMD ["python", "main.py"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
