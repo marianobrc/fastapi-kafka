@@ -8,7 +8,7 @@ consumer = KafkaConsumer(
     'geo-locations',  # Topic
     bootstrap_servers=['kafka:9092'],
     value_deserializer=lambda m: json.loads(m.decode('utf-8')),
-    auto_offset_reset='earliest',
+    auto_offset_reset='latest',
     enable_auto_commit=True,
     group_id='location-consumers',
 )
