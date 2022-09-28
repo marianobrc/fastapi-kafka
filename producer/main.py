@@ -1,16 +1,32 @@
 import json
-from kafka import KafkaProducer
+import time
+from kafka import KafkaProducer, errors
 from fastapi import FastAPI
 from models import Location
 
 
-# produce json messages
-print("Connecting to the broker..")
-producer = KafkaProducer(
-    bootstrap_servers=['kafka:9092'],
-    value_serializer=lambda m: json.dumps(m).encode('utf-8')
-)
+# Connect to kafka broker
+def connect_to_broker(broker_url: str):
+    connected = False
+    kafka_producer = None
+    while not connected:
+        try:
+            print("Connecting to the broker..")
+            kafka_producer = KafkaProducer(
+                bootstrap_servers=[broker_url],
+                value_serializer=lambda m: json.dumps(m).encode('utf-8'),
+                retries=3
+            )
+        except errors.NoBrokersAvailable:
+            print("Broker not available.")
+            time.sleep(1)  # Retry 1 second later
+        else:
+            print("Connected.")
+            connected = True
+    return kafka_producer
 
+
+producer = connect_to_broker('kafka:9092')
 app = FastAPI()
 
 
