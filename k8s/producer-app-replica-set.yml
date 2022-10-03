@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: producer-app-rs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: producer-app
+  template:
+    metadata:
+      labels:
+        app: producer-app
+    spec:
+      containers:
+      - image: produce-app:latest
+        imagePullPolicy: Never
+        name: producer-app
+        ports:
+        - containerPort: 8000
+          name: fastapi
