@@ -29,5 +29,6 @@ USER appuser
 
 # Define an image for local development. Inherits common packages from the base stage.
 FROM base as dev
+COPY --chown=appuser:appuser ./producer/* /home/appuser/code/
 # The development server starts by default when the container starts
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
