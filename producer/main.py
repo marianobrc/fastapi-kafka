@@ -26,7 +26,7 @@ def connect_to_broker(broker_url: str):
     return kafka_producer
 
 
-producer = connect_to_broker('kafka:9092')
+producer = connect_to_broker('kafka-broker-local:9092')
 app = FastAPI()
 
 

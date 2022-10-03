@@ -9,7 +9,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
 
-  kafka:
+  kafka-broker-local:
     image: confluentinc/cp-kafka:latest
     networks:
       - kafka_network
@@ -21,7 +21,7 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LISTENERS: INTERNAL://:9092,EXTERNAL_SAME_HOST://:29092
-      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL_SAME_HOST://localhost:29092
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka-broker-local:9092,EXTERNAL_SAME_HOST://localhost:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL_SAME_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -36,10 +36,10 @@ services:
     ports:
       - "9000:9000"
     environment:
-      KAFKA_BROKERCONNECT: "kafka:9092"
+      KAFKA_BROKERCONNECT: "kafka-broker-local:9092"
       JVM_OPTS: "-Xms16M -Xmx48M -Xss180K -XX:-TieredCompilation -XX:+UseStringDeduplication -noverify"
     depends_on:
-      - kafka
+      - kafka-broker-local
 
   producer:
     build:
@@ -52,7 +52,7 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - kafka
+      - kafka-broker-local
     volumes:
       - ./producer:/home/appuser/code
 
@@ -65,7 +65,7 @@ services:
       - kafka_network
     restart: "on-failure"
     depends_on:
-      - kafka
+      - kafka-broker-local
     volumes: &code
       - ./consumer:/home/appuser/code
 
