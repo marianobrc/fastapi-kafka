@@ -13,7 +13,7 @@ spec:
         app: producer-app
     spec:
       containers:
-      - image: producer-app:producer-app
+      - image: producer-app:1.0.0
         imagePullPolicy: Never
         name: producer-app
         ports:
