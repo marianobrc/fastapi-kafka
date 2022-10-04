@@ -34,6 +34,8 @@ spec:
           value: "kafka-service:9092"
         - name: JVM_OPTS
           value: "-Xms16M -Xmx48M -Xss180K -XX:-TieredCompilation -XX:+UseStringDeduplication -noverify"
+        - name: SERVER_SERVLET_CONTEXTPATH
+          value: "/kafdrop/"
         image: obsidiandynamics/kafdrop
         imagePullPolicy: IfNotPresent
         name: kafdrop
