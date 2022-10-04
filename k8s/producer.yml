@@ -1,7 +1,23 @@
-apiVersion: apps/v1
-kind: ReplicaSet
+apiVersion: v1
+kind: Service
 metadata:
-  name: producer-app-rs
+  name: fastapi-producer-service
+spec:
+  selector:
+    app: producer-app
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+    name: fastapi-port
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: producer-app
+  name: producer-app
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -19,3 +35,4 @@ spec:
         ports:
         - containerPort: 8000
           name: fastapi
+
