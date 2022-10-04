@@ -28,7 +28,6 @@ spec:
       labels:
         app: kafka-broker
     spec:
-      hostname: kafka-broker-local
       containers:
       - env:
         - name: KAFKA_CREATE_TOPICS
@@ -40,7 +39,7 @@ spec:
         - name: KAFKA_LISTENERS
           value: PLAINTEXT://:9092
         - name: KAFKA_ADVERTISED_LISTENERS
-          value: PLAINTEXT://kafka-broker-local:9092
+          value: PLAINTEXT://kafka-service:9092
         image: wurstmeister/kafka
         imagePullPolicy: IfNotPresent
         name: kafka-broker
