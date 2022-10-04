@@ -1,16 +1,16 @@
 import json
 from kafka import KafkaConsumer
 
-
+kafka_broker_url = "kafka-service:9092"
 # produce json messages
-print("Connecting to the broker..")
+print(f"Connecting to the broker at {kafka_broker_url}..")
 consumer = KafkaConsumer(
-    'geo-locations',  # Topic
-    bootstrap_servers=['kafka-service:9092'],
-    value_deserializer=lambda m: json.loads(m.decode('utf-8')),
-    auto_offset_reset='latest',
+    "geo-locations",  # Topic
+    bootstrap_servers=[kafka_broker_url],
+    value_deserializer=lambda m: json.loads(m.decode("utf-8")),
+    auto_offset_reset="latest",
     enable_auto_commit=True,
-    group_id='location-consumers',
+    group_id="location-consumers",
 )
 print("Consuming messages..")
 for message in consumer:
