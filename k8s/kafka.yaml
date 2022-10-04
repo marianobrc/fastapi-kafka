@@ -31,6 +31,8 @@ spec:
       hostname: kafka-broker-local
       containers:
       - env:
+        - name: KAFKA_CREATE_TOPICS
+          value: "geo-locations:1:1"
         - name: KAFKA_BROKER_ID
           value: "1"
         - name: KAFKA_ZOOKEEPER_CONNECT
