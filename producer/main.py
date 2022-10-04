@@ -11,7 +11,7 @@ def connect_to_broker(broker_url: str):
     kafka_producer = None
     while not connected:
         try:
-            print("Connecting to the broker..")
+            print(f"Connecting to the broker at {broker_url}..")
             kafka_producer = KafkaProducer(
                 bootstrap_servers=[broker_url],
                 value_serializer=lambda m: json.dumps(m).encode('utf-8'),
@@ -19,14 +19,14 @@ def connect_to_broker(broker_url: str):
             )
         except errors.NoBrokersAvailable:
             print("Broker not available.")
-            time.sleep(1)  # Retry 1 second later
+            time.sleep(5)  # Retry 5 seconds later
         else:
             print("Connected.")
             connected = True
     return kafka_producer
 
 
-producer = connect_to_broker('kafka-broker-local:9092')
+producer = connect_to_broker('kafka-service:9092')  # ToDo: Get url from an env var
 app = FastAPI()
 
 
