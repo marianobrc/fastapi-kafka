@@ -4,7 +4,7 @@ metadata:
   name: fastapi-producer-service
 spec:
   selector:
-    app: fastapi-producer-app
+    app: producer-app
   ports:
   - protocol: TCP
     port: 8000
