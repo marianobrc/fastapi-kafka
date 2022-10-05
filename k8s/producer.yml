@@ -29,7 +29,7 @@ spec:
         app: producer-app
     spec:
       containers:
-      - image: producer-app:1.1.3
+      - image: producer-app:1.2.2
         imagePullPolicy: Never
         name: producer-app
         ports:
