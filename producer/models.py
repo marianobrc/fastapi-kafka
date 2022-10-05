@@ -2,14 +2,12 @@ from pydantic import BaseModel
 
 
 class MobileEntity(BaseModel):
-    entity_id: str
+    id: str
     type: str
-    longitude: str
-    latitude: str
+    description: str
 
 
-class Location(BaseModel):
-    entity_id: MobileEntity
-    type: str
+class Movement(BaseModel):
+    entity: MobileEntity
     longitude: str
     latitude: str

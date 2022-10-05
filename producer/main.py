@@ -2,7 +2,7 @@ import json
 import time
 from kafka import KafkaProducer, errors
 from fastapi import FastAPI
-from models import Location
+from models import Movement
 
 
 # Connect to kafka broker
@@ -35,8 +35,8 @@ async def root():
     return {"status": "ok"}
 
 
-@app.put("/locations/")
-async def send_location(loc: Location):
+@app.put("/movements/")
+async def send_location(loc: Movement):
     print("Sending a message..")
     message_dict = loc.dict(exclude_unset=True)
     producer.send(
