@@ -31,8 +31,8 @@ spec:
         app: producer-app
     spec:
       containers:
-      - image: producer-app:1.2.2
-        imagePullPolicy: Never
+      - image: us-west2-docker.pkg.dev/fastapi-kafka/producer-app/producer-app:1.2.2
+        imagePullPolicy: IfNotPresent
         name: producer-app
         ports:
         - containerPort: 8000
