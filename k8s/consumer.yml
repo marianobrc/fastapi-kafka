@@ -16,6 +16,6 @@ spec:
         app: consumer-app
     spec:
       containers:
-      - image: consumer-app:1.1.0
+      - image: us-west2-docker.pkg.dev/fastapi-kafka/consumer-app/consumer-app:1.1.0
         imagePullPolicy: Never
         name: consumer-app
